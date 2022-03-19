@@ -1,1 +1,1 @@
-2.3.0 (build beaa5b2)
+2.4.0 (build 993f14d)

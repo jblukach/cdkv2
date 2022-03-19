@@ -1,1 +1,1 @@
-2.6.0 (build 1a22ad7)
+2.7.0 (build cfb09d5)

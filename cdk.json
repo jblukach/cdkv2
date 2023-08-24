@@ -50,6 +50,9 @@
     "@aws-cdk/aws-kms:aliasNameRef": true,
     "@aws-cdk/aws-autoscaling:generateLaunchTemplateInsteadOfLaunchConfig": true,
     "@aws-cdk/core:includePrefixInUniqueNameGeneration": true,
-    "@aws-cdk/aws-opensearchservice:enableOpensearchMultiAzWithStandby": true
+    "@aws-cdk/aws-efs:denyAnonymousAccess": true,
+    "@aws-cdk/aws-opensearchservice:enableOpensearchMultiAzWithStandby": true,
+    "@aws-cdk/aws-lambda-nodejs:useLatestRuntimeVersion": true,
+    "@aws-cdk/aws-efs:mountTargetOrderInsensitiveLogicalId": true
   }
 }

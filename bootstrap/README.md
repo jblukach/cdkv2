@@ -7,6 +7,7 @@ mkdir -p temp/cdkv2
 cd temp/cdkv2
 cdk init app --language python
 cd ../..
+cdk version
 ```
 
 https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html#bootstrapping-contract

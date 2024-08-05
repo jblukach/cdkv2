@@ -11,7 +11,7 @@ cdk version
 ```
 
 ```
-pip3 install -r requirements.txt --upgrade
+pip install -r requirements.txt --upgrade
 cdk deploy --profile 4n6ir --all --require-approval never
 cdk destroy --profile 4n6ir --all --force
 ```

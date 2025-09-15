@@ -780,8 +780,5 @@ Outputs:
       Fn::Sub: ${ContainerAssetsRepository}
   BootstrapVersion:
     Description: The version of the bootstrap resources that are currently mastered in this stack
-    Value:
-      Fn::GetAtt:
-        - CdkBootstrapVersion
-        - Value
+    Value: "29"
 

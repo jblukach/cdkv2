@@ -47,6 +47,13 @@ Parameters:
       - "true"
       - "false"
     Type: String
+  ApplyPermissionsBoundaryToAllRoles:
+    Description: Whether to apply the permissions boundary to all bootstrap roles (not just the CloudFormation execution role)
+    Default: "false"
+    Type: String
+    AllowedValues:
+      - "true"
+      - "false"
   BootstrapVariant:
     Type: String
     Default: "AWS CDK: Default Resources"
@@ -102,6 +109,12 @@ Conditions:
       - Fn::Equals:
           - ""
           - Ref: InputPermissionsBoundary
+  ShouldApplyPermissionsBoundaryToAllRoles:
+    Fn::And:
+      - Condition: PermissionsBoundarySet
+      - Fn::Equals:
+          - "true"
+          - Ref: ApplyPermissionsBoundaryToAllRoles
   HasCustomContainerAssetsRepositoryName:
     Fn::Not:
       - Fn::Equals:
@@ -341,6 +354,11 @@ Resources:
               - Ref: AWS::NoValue
       RoleName:
         Fn::Sub: cdk-${Qualifier}-file-publishing-role-${AWS::AccountId}-${AWS::Region}
+      PermissionsBoundary:
+        Fn::If:
+          - ShouldApplyPermissionsBoundaryToAllRoles
+          - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${InputPermissionsBoundary}
+          - Ref: AWS::NoValue
       Tags:
         - Key: aws-cdk:bootstrap-role
           Value: file-publishing
@@ -391,6 +409,11 @@ Resources:
               - Ref: AWS::NoValue
       RoleName:
         Fn::Sub: cdk-${Qualifier}-image-publishing-role-${AWS::AccountId}-${AWS::Region}
+      PermissionsBoundary:
+        Fn::If:
+          - ShouldApplyPermissionsBoundaryToAllRoles
+          - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${InputPermissionsBoundary}
+          - Ref: AWS::NoValue
       Tags:
         - Key: aws-cdk:bootstrap-role
           Value: image-publishing
@@ -465,6 +488,11 @@ Resources:
               - Ref: AWS::NoValue
       RoleName:
         Fn::Sub: cdk-${Qualifier}-lookup-role-${AWS::AccountId}-${AWS::Region}
+      PermissionsBoundary:
+        Fn::If:
+          - ShouldApplyPermissionsBoundaryToAllRoles
+          - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${InputPermissionsBoundary}
+          - Ref: AWS::NoValue
       ManagedPolicyArns:
         - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/ReadOnlyAccess
       Policies:
@@ -670,6 +698,11 @@ Resources:
         - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AWSCloudFormationReadOnlyAccess
       RoleName:
         Fn::Sub: cdk-${Qualifier}-deploy-role-${AWS::AccountId}-${AWS::Region}
+      PermissionsBoundary:
+        Fn::If:
+          - ShouldApplyPermissionsBoundaryToAllRoles
+          - Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/${InputPermissionsBoundary}
+          - Ref: AWS::NoValue
       Tags:
         - Key: aws-cdk:bootstrap-role
           Value: deploy
@@ -747,7 +780,7 @@ Resources:
       Type: String
       Name:
         Fn::Sub: /cdk-bootstrap/${Qualifier}/version
-      Value: "32"
+      Value: "33"
 Outputs:
   BucketName:
     Description: The name of the S3 bucket owned by the CDK toolkit stack
@@ -773,5 +806,5 @@ Outputs:
       Fn::Sub: ${ContainerAssetsRepository}
   BootstrapVersion:
     Description: The version of the bootstrap resources that are currently mastered in this stack
-    Value: "32"
+    Value: "33"
 

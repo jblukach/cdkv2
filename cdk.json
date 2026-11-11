@@ -18,6 +18,7 @@
     "@aws-cdk-containers/ecs-service-extensions:enableDefaultLogDriver": true,
     "@aws-cdk/aws-apigateway:authorizerChangeDeploymentLogicalId": true,
     "@aws-cdk/aws-apigateway:disableCloudWatchRole": true,
+    "@aws-cdk/aws-apigateway:logGroupDestinationArnWithoutWildcard": true,
     "@aws-cdk/aws-apigateway:requestValidatorUniqueId": true,
     "@aws-cdk/aws-appsync:appSyncGraphQLAPIScopeLambdaPermission": true,
     "@aws-cdk/aws-appsync:useArnForSourceApiAssociationIdentifier": true,
